@@ -1,6 +1,8 @@
 #ifndef _MORSE_H_
 #define _MORSE_H_
 
+#include <stddef.h>
+
 typedef struct morse
 {
    const char *plain;
@@ -14,5 +16,13 @@ typedef struct morse
 #define MORSE_MAX_LEN_PUNC 15 // % = 0/0
 
 extern const Morse_t MORSE_TABLE[MORSE_TABLE_FULL_LEN];
+
+/*
+ * Match morse code.
+ * @param str Test string
+ * @param len Length of test string
+ * @return matching morse entry, otherwise NULL
+ */
+Morse_t* MorseMatch(char *str, size_t len);
 
 #endif

@@ -20,44 +20,31 @@ Result_e AmbiMorse(
       int plain = 0;
       for (int morseLen = 1; morseLen <= MORSE_MAX_LEN_NUM; morseLen++)
       {
-         printf("i:%s\n", input);
+         printf("*:%s\n", input);
          int start = 0;
-         int m = 0;
          int f = 0;
          memset(test, 0, MORSE_MAX_LEN_NUM);
-         while (start + morseLen <= inputLen &&
-               m < MORSE_TABLE_ALPHA_NUM_LEN)
+         Morse_t *morse = NULL;
+         do
          {
             memcpy(test, &input[start], morseLen);
-            printf("t:%*s%s", start, "", test);
-            // TODO Create MorseFind(str,morseLen)
+            printf(" :%*s%s", start, "", test);
+            // TODO
             // Catch short tail
             // if (start + morseLen > inputLen) morseLen--;
             // Repeat MorseFind with reduced morseLen
             // until (start == (inputLen - 1)) || (morseLen == 0)
-            for (m = 0; m < MORSE_TABLE_ALPHA_NUM_LEN; m++)
+            morse = MorseMatch(test, morseLen);
+            if (morse)
             {
-               const Morse_t *morse = &MORSE_TABLE[m];
-               if (morse)
-               {
-                  if (strlen(morse->morse) == morseLen)
-                  {
-                     //printf("m:%*s%s", start, "", morse->morse);
-                     char *found = strstr(test, morse->morse);
-                     if (found)
-                     {
-                        printf("[%s]", morse->plain);
-                        buffer[plain++] = morse->plain[0];
-                        start += morseLen;
-                        f = 1;
-                        break;
-                     }
-                     //printf("\n");
-                  }
-               }
+               printf("[%s]", morse->plain);
+               buffer[plain++] = morse->plain[0];
+               start += morseLen;
+               f = 1;
             }
             printf("\n");
          }
+         while (start + morseLen <= inputLen && morse);
          if (f) buffer[plain++] = '\n';
       }
       *outputLen = strlen(buffer);
