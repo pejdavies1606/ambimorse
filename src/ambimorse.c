@@ -21,31 +21,33 @@ Result_e AmbiMorse(
       for (int morseLen = 1; morseLen <= MORSE_MAX_LEN_NUM; morseLen++)
       {
          printf("*:%s\n", input);
-         int start = 0;
-         int f = 0;
-         memset(test, 0, MORSE_MAX_LEN_NUM);
+         int morseLenTest = morseLen;
+         int i = 0;
          Morse_t *morse = NULL;
          do
          {
-            memcpy(test, &input[start], morseLen);
-            printf(" :%*s%s", start, "", test);
+            memset(test, 0, MORSE_MAX_LEN_NUM);
+            memcpy(test, &input[i], morseLenTest);
+            printf(" :%*s%s", i, "", test);
             // TODO
             // Catch short tail
-            // if (start + morseLen > inputLen) morseLen--;
+            // if (i + morseLen > inputLen) morseLen--;
             // Repeat MorseFind with reduced morseLen
-            // until (start == (inputLen - 1)) || (morseLen == 0)
-            morse = MorseMatch(test, morseLen);
+            // until (i >= (inputLen - 1)) || (morseLen == 0)
+            morse = MorseMatch(test, morseLenTest);
             if (morse)
             {
                printf("[%s]", morse->plain);
                buffer[plain++] = morse->plain[0];
-               start += morseLen;
-               f = 1;
+               i += morseLen;
             }
             printf("\n");
+            if (i + morseLen > inputLen) morseLenTest--;
          }
-         while (start + morseLen <= inputLen && morse);
-         if (f) buffer[plain++] = '\n';
+         while (i + morseLenTest <= inputLen &&
+               morse &&
+               morseLenTest > 0);
+         buffer[plain++] = '\n';
       }
       *outputLen = strlen(buffer);
       *output = buffer;

@@ -29,7 +29,7 @@ static const TestCase_t TEST_TABLE[TEST_TABLE_LEN] =
          "ITTT\n"
          "UM\n"
          "UTT\n"
-         "2"
+         "2\n"
    }
 };
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
             &output,
             &outputLen);
       pass = (output && outputLen > 0);
-      printf("%d: %s : %s\n%s\n",
+      printf("%d: %s : %s\n%s",
             i,
             pass ? "PASS" : "FAIL",
             TEST_TABLE[i].input,
