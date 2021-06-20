@@ -1,4 +1,6 @@
 # AmbiMorse
+Given a string of arbitrary length which contains continuous Morse encoded only in dots (.) and dashes (-), find all combinations (permutations?) of possible translations.
+
 ```
 ><0> ./ambimorse
 *:..---

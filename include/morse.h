@@ -23,6 +23,6 @@ extern const Morse_t MORSE_TABLE[MORSE_TABLE_FULL_LEN];
  * @param len Length of test string
  * @return matching morse entry, otherwise NULL
  */
-Morse_t* MorseMatch(char *str, size_t len);
+const Morse_t* MorseMatch(char *str, size_t len);
 
 #endif
